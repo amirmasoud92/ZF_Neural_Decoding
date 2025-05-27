@@ -1,0 +1,39 @@
+%% Figure 3 
+%% Part A
+clc;clear;close all
+%% Find the folder path
+paths = setupProject(pwd);  
+addpath(paths.utils)
+%%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  %%%%%%%%%%%%%%%%%%%  Event Detection - A1 %%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Figure3_A1 = readtable(fullfile(paths.data,"Fig3_A_1.csv")); 
+
+create_lfp_muae_scatter_plot(Figure3_A1.Acc_LFP, Figure3_A1.Acc_MUAe, ...
+                           'SaveFig', false, ...
+                           'MarkerSize', 20, ...
+                           'MarkerColor',[0.5 0 0.5], ...
+                           'Alpha', 0.6);
+
+%%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  %%%%%%%%%%%%%%%%%%%  Envelope Decoding - A2 %%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Figure3_A2 = readtable(fullfile(paths.data,"Fig3_A_2.csv"));
+
+create_lfp_muae_scatter_plot(Figure3_A2.Corr_LFP, Figure3_A2.Corr_MUAe, ...
+    'SaveFig', false, ...
+    'MarkerSize', 20, ...
+    'MarkerColor',[0.5 0 0.5], ...
+    'Alpha', 0.6);
+
+%%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  %%%%%%%%%%%%%%%%%%%  Landmarks Detection - A3 %%%%%%%%%%%%%%%%%%%%%%%%
+%%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Figure3_A2 = readtable(fullfile(paths.data,"Fig3_A_3.csv"));
+
+create_lfp_muae_scatter_plot(Figure3_A2.Perf_LFP, Figure3_A2.Perf_MUAe, ...
+    'SaveFig', false, ...
+    'MarkerSize', 20, ...
+    'MarkerColor',[0.5 0 0.5], ...
+    'Alpha', 0.6);
+

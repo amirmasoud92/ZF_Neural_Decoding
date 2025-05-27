@@ -1,0 +1,135 @@
+######################################
+## Figure 3 - Part A -Envelope - Comparison of LFP with MUAe performance for decoding song temporal features (Trials) 
+######################################
+
+
+# Load necessary libraries
+library(lme4)
+library(officer)
+library(flextable)
+
+# Define paths
+Load_Path <- '.../Figure 3/Data/'
+Save_Path <- '.../Figure 3/Data/Stat Results/'
+
+# Set working directory and load data
+setwd(Load_Path)
+fileIn <- 'Fig3_A_2.csv'
+df3A.envelope <- read.csv(fileIn)
+
+# Section 2: Data preprocessing
+# Convert columns to factors
+df3A.envelope$Birds_Name <- factor(df3A.envelope$Birds_Name)
+df3A.envelope$Sex_Birds <- factor(df3A.envelope$Sex_Birds)
+df3A.envelope$Song_Number <- factor(df3A.envelope$Song_Number)
+df3A.envelope$Order_Parts <- factor(df3A.envelope$Order_Parts)
+df3A.envelope$Session_Number <- factor(df3A.envelope$Session_Number)
+
+# Summarize the data
+summary(df3A.envelope)
+
+# Section 3: Model fitting and analysis for Perf1
+# Fit null and effect models
+null_model <- lmer('(Corr_MUAe - Corr_LFP) ~ -1 + (1 | Session_Number)', data = df3A.envelope)
+effect_model <- lmer('(Corr_MUAe - Corr_LFP) ~ 1 + (1 | Session_Number)', data = df3A.envelope)
+
+# Perform ANOVA to compare models
+anova_result <- anova(null_model, effect_model)
+
+# Extract summary from effect model
+effect_model.sum <- summary(effect_model)
+
+# Save the model output and ANOVA result to CSV files
+write.csv(anova_result, file = paste0(Save_Path, 'Stat_', fileIn, '_anova_result.csv'))
+write.csv(effect_model.sum$coefficients, file = paste0(Save_Path, 'Stat_', fileIn, '_effect_model_summary.csv'))
+
+# Save effect model summary in a table format similar to R summary
+effect_model_table <- as.data.frame(effect_model.sum$coefficients)
+write.csv(effect_model_table, file = paste0(Save_Path, 'Stat_', fileIn, '_effect_model_summary_table.csv'))
+
+# Section 4: Print formatted results for Perf1
+# Print formatted results
+chi_square <- anova_result[2, "Chisq"]
+df <- anova_result[2, "Df"]
+p_value <- anova_result[2, "Pr(>Chisq)"]
+
+# Format p-value
+p_value_formatted <- p_value
+
+# Calculate delta r and standard error
+delta_r <- effect_model.sum$coefficients[1, "Estimate"]
+se <- effect_model.sum$coefficients[1, "Std. Error"]
+
+# Print results in desired format
+formatted_result_Perf1 <- sprintf('\u03C7^2 (%d) = %.2f, p = %s; Δr = %.2f ± %.3f SE', df, chi_square, p_value_formatted, delta_r, se)
+print(paste0('**Performance 1 envelope : ', formatted_result_Perf1, '**'))
+
+# Print from data (mean and standard error)
+mean_diff <- mean(df3A.envelope$Corr_MUAe - df3A.envelope$Corr_LFP)
+se_diff <- sd(df3A.envelope$Corr_MUAe - df3A.envelope$Corr_LFP) / sqrt(nrow(df3A.envelope))
+formatted_result_data_Perf1 <- sprintf('From Data: Perf1 Difference MU - LFP = %.2f ± %.3f', mean_diff, se_diff)
+print(formatted_result_data_Perf1)
+
+# Section 5: Perf2 analysis
+# Fit null and effect models for Perf2
+null_model_Perf2 <- lmer('(R2_MUAe - R2_LFP) ~ -1 + (1 | Session_Number)', data = df3A.envelope)
+effect_model_Perf2 <- lmer('(R2_MUAe - R2_LFP) ~ 1 + (1 | Session_Number)', data = df3A.envelope)
+
+# Perform ANOVA to compare Perf2 models
+anova_result_Perf2 <- anova(null_model_Perf2, effect_model_Perf2)
+
+# Extract summary from Perf2 effect model
+effect_model_Perf2.sum <- summary(effect_model_Perf2)
+
+# Save the Perf2 model output and ANOVA result to CSV files
+write.csv(anova_result_Perf2, file = paste0(Save_Path, 'Stat_', fileIn, '_R2_anova_result.csv'))
+write.csv(effect_model_Perf2.sum$coefficients, file = paste0(Save_Path, 'Stat_', fileIn, '_R2_effect_model_summary.csv'))
+
+# Save Perf2 effect model summary in a table format similar to R summary
+effect_model_R2_table <- as.data.frame(effect_model_Perf2.sum$coefficients)
+write.csv(effect_model_R2_table, file = paste0(Save_Path, 'Stat_', fileIn, '_R2_effect_model_summary_table.csv'))
+
+# Section 6: Print formatted results for Perf2
+# Print formatted Perf2 results
+chi_square_Perf2 <- anova_result_Perf2[2, "Chisq"]
+df_Perf2 <- anova_result_Perf2[2, "Df"]
+p_value_Perf2 <- anova_result_Perf2[2, "Pr(>Chisq)"]
+
+# Format p-value for Perf2
+p_value_R2_formatted <- p_value_Perf2
+
+# Calculate delta r and standard error for Perf2
+delta_r_Perf2 <- effect_model_Perf2.sum$coefficients[1, "Estimate"]
+se_Perf2 <- effect_model_Perf2.sum$coefficients[1, "Std. Error"]
+
+# Print Perf2 results in desired format
+formatted_result_Perf2 <- sprintf('\u03C7^2 (%d) = %.2f, p = %s; Δr = %.2f ± %.3f SE', df_Perf2, chi_square_Perf2, p_value_R2_formatted, delta_r_Perf2, se_Perf2)
+print(paste0('**Perf2 envelope Detection: ', formatted_result_Perf2, '**'))
+
+# Print from data (mean and standard error) for Perf2
+mean_diff_Perf2 <- mean(df3A.envelope$R2_MUAe - df3A.envelope$R2_LFP)
+se_diff_Perf2 <- sd(df3A.envelope$R2_MUAe - df3A.envelope$R2_LFP) / sqrt(nrow(df3A.envelope))
+formatted_result_data_Perf2 <- sprintf('From Data: Perf2 Difference MU - LFP = %.2f ± %.3f', mean_diff_Perf2, se_diff_Perf2)
+print(formatted_result_data_Perf2)
+
+# Section 7: Save results in Word format
+# add a header with the file name
+doc <- read_docx()   
+
+doc <- body_add_par(
+  doc,
+  paste0("File: ", tools::file_path_sans_ext(fileIn)),
+  style = "Normal"
+)
+
+# add the formatted results
+doc <- body_add_par(doc, formatted_result_Perf1,       style = "Normal")
+doc <- body_add_par(doc, formatted_result_data_Perf1,  style = "Normal")
+doc <- body_add_par(doc, formatted_result_Perf2,       style = "Normal")
+doc <- body_add_par(doc, formatted_result_data_Perf2,  style = "Normal")
+
+# write the .docx file
+print(
+  doc,
+  target = file.path(Save_Path, paste0("Stat_", fileIn, "_results.docx"))
+)

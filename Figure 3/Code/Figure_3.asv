@@ -1,0 +1,13 @@
+%% Figure 3 
+%% Part A
+clc;clear;close all
+%% Find the folder path
+paths = setupProject(pwd);   % start the search from current directory
+addpath(paths.utils)
+%% Event Detection - A1
+Figure3_A1 = readtable(fullfile(paths.data,"Fig3_A_3.csv")); 
+create_lfp_muae_scatter_plot(Figure3_A1.Acc_PeakRate_LFP, Figure3_A1.Acc_PeakRate_MUAe, ...
+                           'SaveFig', false, ...
+                           'MarkerSize', 20, ...
+                           'Alpha', 0.6);
+
