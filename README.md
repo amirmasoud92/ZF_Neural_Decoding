@@ -1,5 +1,5 @@
 # 🐦 ZF_Neural_Decoding  
-Code and analysis for **“Neural decoding of spectro-temporal features of zebra-finch song”**
+Code and analysis for **“Decoding Temporal Features of Birdsong Through Neural Activity Analysis.”**
 
 [![Made with MATLAB](https://img.shields.io/badge/MATLAB-R2024a-orange.svg)](#requirements)
 [![Built with R](https://img.shields.io/badge/R-4.4-blue.svg)](#requirements)
