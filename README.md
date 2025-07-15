@@ -22,6 +22,14 @@ For full methodology and results, refer to the preprint:
 | Stimulus Audio     | https://doi.org/10.17617/3.UINR2V  | 25 kHz WAV files             |
 | Decoding Results   | https://doi.org/10.17617/3.AUMDAU  | Some of the files in the repo|
 
+### 🧠 Neural Activities of Different Brain Sites to an Example Playback
+
+This animation shows time-aligned neural responses across different brain regions of the zebra finch auditory pallium during a single playback of the bird's song.
+
+![Decoder Demo](Supplementary%20Figures/Data/gif/videoplayback-ezgif.com-video-to-gif-converter.gif)
+
+
+
 ## 🖼️ Figures Overview
 
 | **Figure** | **Description**                                                                                                                                                                                                                                                     |
