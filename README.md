@@ -89,7 +89,7 @@ Each figure folder contains both a .m and an .R script. Either will produce the 
 
 If you use this repository in your work, please cite:
 Ahmadi A, Robotka H, Gahr M, Theunissen F (2025).  
-"Decoding Temporal Features of Birdsong Through Neural Activity Analysis."  
+"Decoding Temporal Features of Vocal Signals Through Ensemble Neural Activity Analysis."  
 under review. https://doi.org/10.1101/2025.04.15.XXXXXX
 
 
